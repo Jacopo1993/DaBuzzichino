@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputStylesheet name="primeicons/primeicons.css"
+	library="primefaces" />
+<h:head>
+	<base href="http://localhost:9080/DaBuzzichinoWeb/faces/receivedticketstablepage.xhtml" />
+</h:head>
+<h:body style="background-color:palegreen;">
+	<div align="right">
+		<p:commandButton id="lgotohomepage" name="lgotohomepage"
+			action="#{ticketbean.getHomePageUrl}" icon="pi pi-home"></p:commandButton>
+	</div>
+	<hr />
+	<h1 align="center">
+		<font color="grey">Ticket da Saldare</font>
+	</h1>
+	
+	
+	<h:form id="formTic2">
+		<p:remoteCommand name="rowEdit" update=":formTic:tabTic" />
+		<p:dataTable id="tabTic2" var="ticket" value="#{ticketbean.unsolvedTicket}"
+			editable="true" update=":formTic2:tabTic2">
+			<p:ajax event="rowEdit" listener="#{ticketbean.onRowEdit}" oncomplete="rowEdit()"/>	
+			<p:ajax event="rowEditCancel" update=":formTic2:tabTic2" />
+			
+<!-- 			<p:column headerText=">Id"> -->
+<!--        			 <h:outputText value="#{ticket.ticketId}" /> -->
+<!--     		</p:column> -->
+			<p:column headerText="Mandante">
+       			 <h:outputText value="#{ticket.sender}" />
+    		</p:column>
+    		<p:column headerText="Valore">
+       			 <h:outputText value="#{ticket.ticketValue}" />
+    		</p:column>
+    		<p:column headerText="Saldato">
+    			<p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ticket.solved}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{ticket.solved}" style="width:100%">
+                        <f:selectItem  itemLabel="True" itemValue="true"/>
+<!--                         <f:selectItem   itemValue="false"/> -->
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+       			 <h:outputText value="#{ticket.solved}" />
+    		</p:column>
+    		<p:column headerText="Data Rilascio">
+       			 <h:outputText value="#{ticket.releaseDate}" />
+    		</p:column>
+    		<p:column headerText="Data Chiusura">
+       			 <h:outputText value="#{ticket.closingDate}" />
+    		</p:column>
+    		<p:column headerText="Messaggio">
+       			 <h:outputText value="#{ticket.message}" />
+    		</p:column>  	
+    		<p:column style="width:35px">
+            <p:rowEditor />
+        	</p:column>	
+		</p:dataTable>
+	</h:form>	
+	
+	<hr />
+	<h1 align="center">
+		<font color="grey">Ticket Saldati</font>
+	</h1>
+	
+	<h:form id="formTic">
+<!-- 		<p:remoteCommand name="rowEdit" update=":formTic:tabTic" /> -->
+		<p:dataTable id="tabTic" var="ticket" value="#{ticketbean.receivedTickets}"
+			editable="false" update=":formTic:tabTic">
+<!-- 			<p:ajax event="rowEdit" listener="#{ticketbean.onRowEdit}" oncomplete="rowEdit()"/>	 -->
+<!-- 			<p:ajax event="rowEditCancel" update=":formTic:tabTic" /> -->
+			
+			<p:column headerText=">Id">
+       			 <h:outputText value="#{ticket.ticketId}" />
+    		</p:column>
+			<p:column headerText="Mandante">
+       			 <h:outputText value="#{ticket.sender}" />
+    		</p:column>
+    		<p:column headerText="Valore">
+       			 <h:outputText value="#{ticket.ticketValue}" />
+    		</p:column>
+    		<p:column headerText="Saldato">
+       			 <h:outputText value="#{ticket.solved}" />
+    		</p:column>
+    		<p:column headerText="Data Rilascio">
+       			 <h:outputText value="#{ticket.releaseDate}" />
+    		</p:column>
+    		<p:column headerText="Data Chiusura">
+       			 <h:outputText value="#{ticket.closingDate}" />
+    		</p:column>
+    		<p:column headerText="Messaggio">
+       			 <h:outputText value="#{ticket.message}" />
+    		</p:column>  		
+		</p:dataTable>
+	</h:form>	
+	
+<!-- 		<p:outputLabel for="lsolveticket">Risolvi un ticket di pagamaneto</p:outputLabel> -->
+<!-- 		<div align="right"> -->
+<!-- 			<p:commandButton id="lsolveticket" name="lsolveticket" onclick="PF('dlg1').show();" icon=" fa-check-circle-o"></p:commandButton> -->
+<!-- 		</div> -->
+	
+<!-- 		<h:form id="popupformsolveticket"> -->
+<!-- 		<p:dialog header="Seleziona il ticket da risolvere" widgetVar="dlg1" minHeight="40"> -->
+<!-- 			<h:panelGrid id="grid"> -->
+<!-- 				<p:outputLabel for="ticketID">Ticket ID</p:outputLabel> -->
+<!--             	<p:selectOneMenu id="ticketID" value="#{ticketbean.idToSolve}" style="width:200px"> -->
+<!--                 	<f:selectItem itemLabel="Seleziona un ticket" itemValue="" noSelectionOption="true" /> -->
+<!--                 	<f:selectItems value="#{ticketbean.unsolvedTicket}" /> -->
+<!--            		 </p:selectOneMenu> -->
+				
+<!-- 				<p:commandButton value="Risolvi Ticket" -->
+<!-- 					action="#{ticketbean.solveTicket()}" update="grid"></p:commandButton> -->
+<!-- 			</h:panelGrid> -->
+<!-- 		</p:dialog> -->
+<!-- 		</h:form> -->
+	
+</h:body>
+</html>

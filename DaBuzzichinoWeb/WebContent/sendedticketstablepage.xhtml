@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputStylesheet name="primeicons/primeicons.css"
+	library="primefaces" />
+<h:head>
+	<base href="http://localhost:9080/DaBuzzichinoWeb/faces/sendedticketstablepage.xhtml" />
+</h:head>
+<h:body style="background-color:palegreen;">
+	<div align="right">
+		<p:commandButton id="lgotohomepage" name="lgotohomepage"
+			action="#{ticketbean.getHomePageUrl}" icon="pi pi-home"></p:commandButton>
+	</div>
+	<hr />
+	<h1 align="center">
+		<font color="grey">Ticket Inviati</font>
+	</h1>
+	
+	<h:form id="formTic">
+		<p:remoteCommand name="rowEdit" update=":formTic:tabTic" />
+		<p:dataTable id="tabTic" var="ticket" value="#{ticketbean.sendedTickets}"
+			editable="true" update=":formTic:tabTic">
+			<p:ajax event="rowEdit" listener="#{ticketbean.onRowEdit}" oncomplete="rowEdit()"/>	
+			<p:ajax event="rowEditCancel" update=":formTic:tabTic" />
+			
+<!-- 			<p:column headerText=">Id"> -->
+<!--        			 <h:outputText value="#{ticket.ticketId}" /> -->
+<!--     		</p:column> -->
+<!-- 			<p:column headerText="Mandante"> -->
+<!--        			 <h:outputText value="#{ticket.sender}" /> -->
+<!--     		</p:column> -->
+    		<p:column headerText="Ricevente">
+       			 <h:outputText value="#{ticket.receiver}" />
+    		</p:column>
+    		<p:column headerText="Valore">
+       			 <h:outputText value="#{ticket.ticketValue}" />
+    		</p:column>
+    		<p:column headerText="Saldato">
+       			 <h:outputText value="#{ticket.solved}" />
+    		</p:column>
+    		<p:column headerText="Data Rilascio">
+       			 <h:outputText value="#{ticket.releaseDate}" />
+    		</p:column>
+    		<p:column headerText="Data Chiusura">
+       			 <h:outputText value="#{ticket.closingDate}" />
+    		</p:column>
+    		<p:column headerText="Messaggio">
+       			 <h:outputText value="#{ticket.message}" />
+    		</p:column>
+    		
+		</p:dataTable>
+	</h:form>	
+</h:body>
+</html>
