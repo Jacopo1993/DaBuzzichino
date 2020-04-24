@@ -42,6 +42,8 @@ public class TicketBean {
 	
 	private String username = "pablo";
 	
+	private String branchTest = "branch_01";
+	
 	@PostConstruct
 	public void init() {
 	
